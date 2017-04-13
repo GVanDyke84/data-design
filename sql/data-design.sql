@@ -1,0 +1,4 @@
+DROP TABLE IF EXISTS favorite;
+DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS profile;
+CREATE TABLE profile
