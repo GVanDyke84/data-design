@@ -17,7 +17,9 @@
 			<h3>Attitudes and Behaviors:</h3>
 			<p>Johnny is in class 4 hours per day, and when he's not in class he's either studying or playing poker, or doing both at the same time (like I said, he's a prodigy). He doesn't always post on social media, but when he does he has an eager audience that supports and mimics his preferences and behaviors. In addition to the money he makes at the poker table, he also is an affiliate marketer for certain poker products, including branded hats, shirts, and poker chips.</p>
 			<h3>Frustrations and Needs</h3>
-			<p>Johnny has used various e-commerce sites in the past that are not optimized for the mobile user experience. This is due to the fact that when he favorites a product that he uses he needs to do so on his PC if he wants to be able to simultaneously share his favorites with his followers on his social media platforms. He's clearly who adheres to the phrase: time is money, and not being able to do all of this on his Samsung Galaxy 7 is really getting on his nerves.</p>
+			<p>Johnny has used various e-commerce sites in the past that are not optimized for the mobile user experience. This is due to the fact that when he favorites a product that he uses he needs to do so on his PC if he wants to be able to simultaneously share his favorites with his followers on his social media platforms. He's clearly a guy who adheres to the phrase: time is money, and not being able to do all of this on his Samsung Galaxy 7 is really getting on his nerves.</p>
+			<h3>Goals</h3>
+			<p>Johnny's goal is simple. He wants to be able to share products to his social media followers thathe has favorited on an e-commerce platform, and he wants to be able to do this exclusively from his mobile device. This allows him to multi-task, while maximizing his money making potential as a poker player and affiliate marketer.</p>
 
 		</main>
 	</body>
