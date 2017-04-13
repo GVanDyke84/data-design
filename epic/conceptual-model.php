@@ -26,8 +26,8 @@
 				</ul>
 				<h2>Entity-Favorite</h2>
 				<ul>
-					<li>profile ID (primary key)</li>
-					<li>product ID (primary key)</li>
+					<li>profile ID (composite key)</li>
+					<li>product ID (composite key)</li>
 
 				</ul>
 				<h2>Relationships</h2>
