@@ -9,16 +9,31 @@
 			<h1>CONCEPTUAL MODEL</h1>
 
 			<main>
+				<h2>Entity-Profile</h2>
 				<ul>
-					<li>Profile ID is entered to login to site</li>
-					<li>Password is hashed and verified</li>
+					<li>Profile ID </li>
+					<li>Profile hash & salt(password verification)</li>
+					<li>Avatar</li>
+					<li>Email</li>
+					<li>Location</li>
+				</ul>
+				<h2>Entity-Product</h2>
+				<ul>
+					<li>Product ID</li>
+					<li>Product image</li>
+					<li>Size/dimensions</li>
+					<li>Price</li>
+				</ul>
+				<h2>Entity-Favorite</h2>
+				<ul>
+					<li>profile ID</li>
+					<li>total count</li>
+					<li>social network links</li>
+				</ul>
+				<h2>Relationships</h2>
+				<ul>
 					<li>Many products can be favorited by many profiles</li>
 					<li>Many favorites can be shared to many social network sites</li>
-					<li>Profile entity has identifying attributes such as avatar, physical location email address, social media profiles</li>
-					<li>Product entity has identifying attributes such as photo, price, size/dimensions</li>
-					<li>Favorite entity is a heart icon that when clicked on initiates a prompt allowing one to share their favorite to the social networks of choice</li>
-
-				</ul>
 			</main>
 		</header>
 	</body>
