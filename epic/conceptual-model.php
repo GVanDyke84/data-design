@@ -11,7 +11,7 @@
 			<main>
 				<h2>Entity-Profile</h2>
 				<ul>
-					<li>Profile ID </li>
+					<li>Profile ID (primary key) </li>
 					<li>Profile hash & salt(password verification)</li>
 					<li>Avatar</li>
 					<li>Email</li>
@@ -19,16 +19,16 @@
 				</ul>
 				<h2>Entity-Product</h2>
 				<ul>
-					<li>Product ID</li>
+					<li>Product ID (primary key)</li>
 					<li>Product image</li>
 					<li>Size/dimensions</li>
 					<li>Price</li>
 				</ul>
 				<h2>Entity-Favorite</h2>
 				<ul>
-					<li>profile ID</li>
-					<li>total count</li>
-					<li>social network links</li>
+					<li>profile ID (primary key)</li>
+					<li>product ID (primary key)</li>
+
 				</ul>
 				<h2>Relationships</h2>
 				<ul>
