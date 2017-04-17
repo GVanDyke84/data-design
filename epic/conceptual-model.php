@@ -20,7 +20,6 @@
 				<ul>
 					<li>Product ID (primary key)</li>
 					<li>Product image</li>
-					<li>Size/dimensions</li>
 					<li>Price</li>
 				</ul>
 				<h2>Entity-Favorite</h2>
