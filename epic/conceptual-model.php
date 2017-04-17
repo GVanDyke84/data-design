@@ -14,8 +14,7 @@
 					<li>Profile ID (primary key) </li>
 					<li>Profile hash & salt(password verification)</li>
 					<li>Avatar</li>
-					<li>Email</li>
-					<li>Location</li>
+					<li>Email</li
 				</ul>
 				<h2>Entity-Product</h2>
 				<ul>
