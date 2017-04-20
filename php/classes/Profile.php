@@ -1,5 +1,5 @@
 <?php
-//namespace\;
+namespace Edu\Cnm\DataDesign;
 require_once("autoload.php");
 /**
  * This is an example of a profile on an ecommerce site
@@ -64,9 +64,12 @@ class Profile {
 			//convert and store proileID
 			$this->profileId;
 		}
+		{
+			require_once("autoload.php");
+		}
+		{ValidateDate;}
 	}
 	/**
 	 *accessor method for profile email
 	 * @return string value of profile email
 	 **/
-}
