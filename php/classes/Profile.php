@@ -67,9 +67,37 @@ class Profile {
 		{
 			require_once("autoload.php");
 		}
-		{ValidateDate;}
-	}
-	/**
-	 *accessor method for profile email
-	 * @return string value of profile email
-	 **/
+		{
+			ValidateDate;
+		}
+
+		/**
+		 *accessor method for profile email
+		 * @return string value of profile email
+		 **/
+		public function getProfileEmail() :string {
+			return($this->profileEmail);
+		}
+		/**
+		 * mutator method for profile email
+		 *
+		 * @param sting $profileEmail value of profile email
+		 * @throws \InvalidArgumentException if $profileEmail is not a string or insecure
+		 * @throws \RangeException if $profileEmail is > 128 characters
+		 * @throws \TypeError if $profileEmail is not a string
+
+		 **/
+		public function setProfileEmail(string$profileEmail) : void {
+			$profileEmail = trim($profileEmail);
+		if(empty($profileEmail) === true) {
+		throw(new \InvalidArgumentException("profile email is empty"));
+		//verify the email address is less than 128 characters
+			if(strlen($profileEmail) > 128) {
+				throw(new \RangeException("email address is longer than the 128 character maximum"));
+			}
+			//store the profile email address
+			$this->profileEmail = $profileEmail;
+		}
+		}
+
+	}}
