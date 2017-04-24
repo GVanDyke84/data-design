@@ -36,6 +36,19 @@ class Profile {
 	 **/
 	private $profileHash;
 
+	public function __construct(? int $profileID, int $profileEmail, string $profileAvatar) {
+		try {
+			$this->setProfileId($profileID);
+			$this->setProfileEmail($profileEmail);
+			$this->setProfileAvatar($profileAvatar);
+		}
+		//determine exception type thrown
+		catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception)
+		{
+			$exceptionType = get_class($exception);
+		throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+	}
 
 	/**
 	 * accessor method for profileID
