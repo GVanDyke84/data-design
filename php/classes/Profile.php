@@ -179,5 +179,9 @@ class Profile {
 			//create query template
 			$query = "INSERT INTO profile(profileId, profileEmail, profileAvatar) VALUES(:profileID, :profileEmail, :profileAvatar)";
 			$statement = $pdo->prepare($query);
+			$parameters = ["profileId" => $this->profileId, "profileEmail" => $this->profileEmail, "profileAvatar" => $this->profileAvatar];
+			$statement->execute($parameters);
+			//update the null profileId with what MySQL gives us
+			$this->profileId = intval($pdo->lastInsertId());
 		}
 	}}
