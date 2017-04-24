@@ -68,7 +68,7 @@ class Profile {
 			require_once("autoload.php");
 		}
 		{
-			ValidateDate;
+			require_once ("ValidateDate.php");
 		}
 
 		/**
@@ -81,7 +81,7 @@ class Profile {
 		/**
 		 * mutator method for profile email
 		 *
-		 * @param sting $profileEmail value of profile email
+		 * @param string $profileEmail value of profile email
 		 * @throws \InvalidArgumentException if $profileEmail is not a string or insecure
 		 * @throws \RangeException if $profileEmail is > 128 characters
 		 * @throws \TypeError if $profileEmail is not a string
@@ -99,5 +99,27 @@ class Profile {
 			$this->profileEmail = $profileEmail;
 		}
 		}
+		/**
+		 * accessor method for profile email
+		 * @return string value of profile avatar
+		**/
+		public function getProfileAvatar() :string {
+			return($this->profileAvatar);
+		}
 
+		/**
+		 * mutator method for profile avatar
+		 *
+		 * @param string $profileAvatar value of profile avatar
+		 * @throws \RangeException if $profileAvatar is > 32 characters
+		 *
+		 */
+		public function setProfileAvatar(string$profileAvatar) : void {
+			$profileAvatar = trim($profileAvatar);
+			if(strlen($profileAvatar) > 32) {
+				throw(new \RangeException("profile avatar is longer than the 32 character maximum"));
+			}
+			//store the profile avatar
+			$this->profileAvatar = $profileAvatar;
+		}
 	}}
