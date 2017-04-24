@@ -122,4 +122,32 @@ class Profile {
 			//store the profile avatar
 			$this->profileAvatar = $profileAvatar;
 		}
+
+		/**
+		 * accessor method for profile hash
+		 * @return string value of profile hash
+		 */
+		public function getProfileHash() :string {
+			return($this->profileHash);
+		}
+
+		/**
+		 * mutator method for profile hash
+		 * @param string $newProfileHash
+		 * @throws \InvalidArgumentException if the hash is not secure
+		 * @throws \RangeException if the hash is not 128 characters
+		 * @throws \TypeError if the profile hash is not a string
+		 */
+		public function setProfileHash(string $ProfileHash): void {
+			$ProfileHash = trim($newProfileHash);
+			if(empty($newProfileHash) === true) {
+				throw(new \InvalidArgumentException("profile hash empty or insecure"));
+			}
+			//enforce profile Hash is exactly 128 characters
+			if(strlen($newProfileHash) !== 128) {
+				throw(new \RangeException("profile hash must be 128 characters"));
+			}
+			//store the profile hash
+			$this->profileHash = $newProfileHash
+		}
 	}}
