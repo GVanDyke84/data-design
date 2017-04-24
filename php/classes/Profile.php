@@ -151,8 +151,8 @@ class Profile {
 		 * @throws \RangeException if the hash is not 128 characters
 		 * @throws \TypeError if the profile hash is not a string
 		 */
-		public function setProfileHash(string $ProfileHash): void {
-			$ProfileHash = trim($newProfileHash);
+		public function setProfileHash(string $profileHash): void {
+			$profileHash = trim($newProfileHash);
 			if(empty($newProfileHash) === true) {
 				throw(new \InvalidArgumentException("profile hash empty or insecure"));
 			}
@@ -161,6 +161,23 @@ class Profile {
 				throw(new \RangeException("profile hash must be 128 characters"));
 			}
 			//store the profile hash
-			$this->profileHash = $newProfileHash
+			$this->profileHash = $newProfileHash;
+		}
+		/**
+		 * Inserts profile into MySQL
+		 *
+		 * @param \PDO $pdo PDO connection object
+		 * @throws \PDOException when MySQL errors occur
+		 * @throws \TypeError if $pdo is not a PDO connection object
+		 *
+		 */
+		public function insert(\PDO $pdo) : void {
+			// enforce the profileID is null (don't insert a profileID that already exists)
+			if($this->profileId !== null) {
+				throw(new \PDOException("not a new profile"));
+			}
+			//create query template
+			$query = "INSERT INTO profile(profileId, profileEmail, profileAvatar) VALUES(:profileID, :profileEmail, :profileAvatar)";
+			$statement = $pdo->prepare($query);
 		}
 	}}
