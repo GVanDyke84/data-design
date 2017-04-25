@@ -279,5 +279,13 @@ class Profile {
 		//bind the profileId to the placeholder in the template
 		$parameters = ["profileId" => $profileId];
 		$statement->execute($parameters);
+		//build an array of profiles
+		$profiles = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try{
+
+			}
+		}
 	}
 }
