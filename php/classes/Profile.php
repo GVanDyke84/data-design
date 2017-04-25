@@ -256,4 +256,22 @@ class Profile {
 		$statement->execute($parameters);
 	}
 
+	/**
+	 * Gets a profile by profileId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param int $profileId profile Id to search for
+	 * @return Profile|null Profile found or null if not found
+	 * @throws PDOException when mySQL related errors occur
+	 * @throws TypeError when variables are not correct data type
+	 *
+	 */
+
+	public static function getProfileByProfileId(\PDO $pdo, int $profileId) : ?Profile {
+		// sanitize the profileId before searching
+		if($profileId <= 0) {
+			throw(new \PDOException("profile Id is not positive"));
+		}
+
+	}
 }
