@@ -6,10 +6,13 @@ require_once("autoload.php");
 /**
  * This is an example of a profile on an ecommerce site
  *
- * ...and a description here
+ * The primary key of the profile is profileID, also linked to the profile are a required email address
+ * and an optional profile avatar. For security purposes hashing and salting is used for the password
+ *so the password will not be stored on the site
  *
  * @author Gerrit Van Dyke <gvandyke1@cnm.edu>
  * @version 1.0
+ *
  **/
 class Profile {
 	/**
@@ -247,6 +250,7 @@ class Profile {
 		//create query template
 
 		$query = "UPDATE profile SET profileId = :profileId, profileEmail = :profileEmail, 						profileAvatar = :profileAvatar";
+		$statement = $pdo->prepare($query);
 		//bind the profile variables to the placeholders in the template
 		$parameters = ["profileId" => $this->profileId, "profileEmail" => $this->profileEmail, "profileAvatar" => $this->profileAvatar];
 		$statement->execute($parameters);
