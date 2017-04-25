@@ -273,5 +273,11 @@ class Profile {
 			throw(new \PDOException("profile Id is not positive"));
 		}
 
+		//create query template
+		$query = "SELECT profileId, profileEmail, profileAvatar FROM profile WHERE profileId = 					:profileId";
+		$statement = $pdo->prepare($query);
+		//bind the profileId to the placeholder in the template
+		$parameters = ["profileId" => $profileId];
+		$statement->execute($parameters);
 	}
 }
