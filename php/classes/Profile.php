@@ -184,4 +184,22 @@ class Profile {
 			//update the null profileId with what MySQL gives us
 			$this->profileId = intval($pdo->lastInsertId());
 		}
+		/**
+		 * Deletes profile from mySQL
+		 * @param \PDO $pdo PDO connection object
+		 * @throws \PDOException when mySQL errors occur
+		 * @throws \TypeError if $pdo is not a PDO connection object
+		 */
+		public function delete(\PDO $pdo) : void {
+			// enforce the profileId is not null (i.e. don't delete a profile that hasn't been inserted
+			if($this->profileId === null) {
+				throw(new \PDOException("unable to delete a profile that does not exist"));
+			}
+			//create query template
+			$query = "DELETE FROM profile WHERE profileId = :profileId";
+			$statement  = $pdo->prepare($query);
+			// bind the profile variables to the placeholder in the template
+			$parameters = ["profileId" => $this->profileId];
+			$statement->execute($parameters);
+		}
 	}}
