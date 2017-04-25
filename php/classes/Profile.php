@@ -1,6 +1,8 @@
 <?php
+
 namespace Edu\Cnm\DataDesign;
 require_once("autoload.php");
+
 /**
  * This is an example of a profile on an ecommerce site
  *
@@ -41,12 +43,10 @@ class Profile {
 			$this->setProfileId($profileID);
 			$this->setProfileEmail($profileEmail);
 			$this->setProfileAvatar($profileAvatar);
-		}
-		//determine exception type thrown
-		catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception)
-		{
+		} //determine exception type thrown
+		catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
 			$exceptionType = get_class($exception);
-		throw(new $exceptionType($exception->getMessage(), 0, $exception));
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 	}
 
@@ -77,150 +77,150 @@ class Profile {
 			//convert and store proileID
 			$this->profileId;
 		}
-		{
-			require_once("autoload.php");
-		}
-		{
-			require_once ("ValidateDate.php");
-		}
+	}
 
-		/**
-		 *accessor method for profile email
-		 * @return string value of profile email
-		 **/
-		public function getProfileEmail() :string {
-			return($this->profileEmail);
-		}
-		/**
-		 * mutator method for profile email
-		 *
-		 * @param string $profileEmail value of profile email
-		 * @throws \InvalidArgumentException if $profileEmail is not a string or insecure
-		 * @throws \RangeException if $profileEmail is > 128 characters
-		 * @throws \TypeError if $profileEmail is not a string
+	/**
+	 *accessor method for profile email
+	 * @return string value of profile email
+	 **/
+	public function getProfileEmail(): string {
+		return ($this->profileEmail);
+	}
 
-		 **/
-		public function setProfileEmail(string$profileEmail) : void {
-			$profileEmail = trim($profileEmail);
+	/**
+	 * mutator method for profile email
+	 *
+	 * @param string $profileEmail value of profile email
+	 * @throws \InvalidArgumentException if $profileEmail is not a string or insecure
+	 * @throws \RangeException if $profileEmail is > 128 characters
+	 * @throws \TypeError if $profileEmail is not a string
+	 **/
+	public function setProfileEmail(string $profileEmail): void {
+		$profileEmail = trim($profileEmail);
 		if(empty($profileEmail) === true) {
-		throw(new \InvalidArgumentException("profile email is empty"));
-		//verify the email address is less than 128 characters
+			throw(new \InvalidArgumentException("profile email is empty"));
+			//verify the email address is less than 128 characters
 			if(strlen($profileEmail) > 128) {
 				throw(new \RangeException("email address is longer than the 128 character maximum"));
 			}
 			//store the profile email address
 			$this->profileEmail = $profileEmail;
 		}
-		}
-		/**
-		 * accessor method for profile email
-		 * @return string value of profile avatar
-		**/
-		public function getProfileAvatar() :string {
-			return($this->profileAvatar);
-		}
+	}
 
-		/**
-		 * mutator method for profile avatar
-		 *
-		 * @param string $profileAvatar value of profile avatar
-		 * @throws \RangeException if $profileAvatar is > 32 characters
-		 *
-		 */
-		public function setProfileAvatar(string$profileAvatar) : void {
-			$profileAvatar = trim($profileAvatar);
-			if(strlen($profileAvatar) > 32) {
-				throw(new \RangeException("profile avatar is longer than the 32 character maximum"));
-			}
-			//store the profile avatar
-			$this->profileAvatar = $profileAvatar;
-		}
+	/**
+	 * accessor method for profile email
+	 * @return string value of profile avatar
+	 **/
+	public function getProfileAvatar(): string {
+		return ($this->profileAvatar);
+	}
 
-		/**
-		 * accessor method for profile hash
-		 * @return string value of profile hash
-		 */
-		public function getProfileHash() :string {
-			return($this->profileHash);
+	/**
+	 * mutator method for profile avatar
+	 *
+	 * @param string $profileAvatar value of profile avatar
+	 * @throws \RangeException if $profileAvatar is > 32 characters
+	 *
+	 */
+	public function setProfileAvatar(string $profileAvatar): void {
+		$profileAvatar = trim($profileAvatar);
+		if(strlen($profileAvatar) > 32) {
+			throw(new \RangeException("profile avatar is longer than the 32 character maximum"));
 		}
+		//store the profile avatar
+		$this->profileAvatar = $profileAvatar;
+	}
 
-		/**
-		 * mutator method for profile hash
-		 * @param string $newProfileHash
-		 * @throws \InvalidArgumentException if the hash is not secure
-		 * @throws \RangeException if the hash is not 128 characters
-		 * @throws \TypeError if the profile hash is not a string
-		 */
-		public function setProfileHash(string $profileHash): void {
-			$profileHash = trim($newProfileHash);
-			if(empty($newProfileHash) === true) {
-				throw(new \InvalidArgumentException("profile hash empty or insecure"));
-			}
-			//enforce profile Hash is exactly 128 characters
-			if(strlen($newProfileHash) !== 128) {
-				throw(new \RangeException("profile hash must be 128 characters"));
-			}
-			//store the profile hash
-			$this->profileHash = $newProfileHash;
-		}
-		/**
-		 * Inserts profile into MySQL
-		 *
-		 * @param \PDO $pdo PDO connection object
-		 * @throws \PDOException when MySQL errors occur
-		 * @throws \TypeError if $pdo is not a PDO connection object
-		 *
-		 */
-		public function insert(\PDO $pdo) : void {
-			// enforce the profileID is null (don't insert a profileID that already exists)
-			if($this->profileId !== null) {
-				throw(new \PDOException("not a new profile"));
-			}
-			//create query template
-			$query = "INSERT INTO profile(profileId, profileEmail, profileAvatar) VALUES(:profileID, :profileEmail, :profileAvatar)";
-			$statement = $pdo->prepare($query);
-			$parameters = ["profileId" => $this->profileId, "profileEmail" => $this->profileEmail, "profileAvatar" => $this->profileAvatar];
-			$statement->execute($parameters);
-			//update the null profileId with what MySQL gives us
-			$this->profileId = intval($pdo->lastInsertId());
-		}
-		/**
-		 * Deletes profile from mySQL
-		 * @param \PDO $pdo PDO connection object
-		 * @throws \PDOException when mySQL errors occur
-		 * @throws \TypeError if $pdo is not a PDO connection object
-		 */
-		public function delete(\PDO $pdo) : void {
-			// enforce the profileId is not null (i.e. don't delete a profile that hasn't been inserted
-			if($this->profileId === null) {
-				throw(new \PDOException("unable to delete a profile that does not exist"));
-			}
-			//create query template
-			$query = "DELETE FROM profile WHERE profileId = :profileId";
-			$statement  = $pdo->prepare($query);
-			// bind the profile variables to the placeholder in the template
-			$parameters = ["profileId" => $this->profileId];
-			$statement->execute($parameters);
-		}
-		/**
-		 * updates this profile in mySQL
-		 *
-		 * @param \PDO $pdo PDO connection object
-		 * @throws \PDOException when mySQL related errors occur
-		 * @throws \TypeError if $pdo is not a PDO connection object
-		 *
-		 */
+	/**
+	 * accessor method for profile hash
+	 * @return string value of profile hash
+	 */
+	public function getProfileHash(): string {
+		return ($this->profileHash);
+	}
 
-		public function update(\PDO $pdo) : void {
-			// enforce the profileId is not null (i.e. don't update a profile that hasn't been inserted
-			if($this->profileId === null) {
-				throw(new \PDOException("unable to update a profile that does not exist"));
-			}
-			//create query template
-
-			$query = "UPDATE profile SET profileId = :profileId, profileEmail = :profileEmail, 						profileAvatar = :profileAvatar";
-			//bind the profile variables to the placeholders in the template
-			$parameters = ["profileId" => $this->profileId, "profileEmail" => $this->profileEmail, 						"profileAvatar" => $this->profileAvatar];
-			$statement->execute($parameters);
+	/**
+	 * mutator method for profile hash
+	 * @param string $newProfileHash
+	 * @throws \InvalidArgumentException if the hash is not secure
+	 * @throws \RangeException if the hash is not 128 characters
+	 * @throws \TypeError if the profile hash is not a string
+	 */
+	public function setProfileHash(string $profileHash): void {
+		$profileHash = trim($newProfileHash);
+		if(empty($newProfileHash) === true) {
+			throw(new \InvalidArgumentException("profile hash empty or insecure"));
 		}
-	}}
+		//enforce profile Hash is exactly 128 characters
+		if(strlen($newProfileHash) !== 128) {
+			throw(new \RangeException("profile hash must be 128 characters"));
+		}
+		//store the profile hash
+		$this->profileHash = $newProfileHash;
+	}
+
+	/**
+	 * Inserts profile into MySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when MySQL errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 *
+	 */
+	public function insert(\PDO $pdo): void {
+		// enforce the profileID is null (don't insert a profileID that already exists)
+		if($this->profileId !== null) {
+			throw(new \PDOException("not a new profile"));
+		}
+		//create query template
+		$query = "INSERT INTO profile(profileId, profileEmail, profileAvatar) VALUES(:profileID, :profileEmail, :profileAvatar)";
+		$statement = $pdo->prepare($query);
+		$parameters = ["profileId" => $this->profileId, "profileEmail" => $this->profileEmail, "profileAvatar" => $this->profileAvatar];
+		$statement->execute($parameters);
+		//update the null profileId with what MySQL gives us
+		$this->profileId = intval($pdo->lastInsertId());
+	}
+
+	/**
+	 * Deletes profile from mySQL
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 */
+	public function delete(\PDO $pdo): void {
+		// enforce the profileId is not null (i.e. don't delete a profile that hasn't been inserted
+		if($this->profileId === null) {
+			throw(new \PDOException("unable to delete a profile that does not exist"));
+		}
+		//create query template
+		$query = "DELETE FROM profile WHERE profileId = :profileId";
+		$statement = $pdo->prepare($query);
+		// bind the profile variables to the placeholder in the template
+		$parameters = ["profileId" => $this->profileId];
+		$statement->execute($parameters);
+	}
+
+	/**
+	 * updates this profile in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 *
+	 */
+
+	public function update(\PDO $pdo): void {
+		// enforce the profileId is not null (i.e. don't update a profile that hasn't been inserted
+		if($this->profileId === null) {
+			throw(new \PDOException("unable to update a profile that does not exist"));
+		}
+		//create query template
+
+		$query = "UPDATE profile SET profileId = :profileId, profileEmail = :profileEmail, 						profileAvatar = :profileAvatar";
+		//bind the profile variables to the placeholders in the template
+		$parameters = ["profileId" => $this->profileId, "profileEmail" => $this->profileEmail, "profileAvatar" => $this->profileAvatar];
+		$statement->execute($parameters);
+	}
+
+}
