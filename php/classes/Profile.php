@@ -284,8 +284,15 @@ class Profile {
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try{
+				$profile = new Profile($row["profileId"], $row["profileEmail"], $row["profileAvatar"]);
+				$profiles[$profiles->key()] = $profile;
+				$profiles->next();
 
+			}	catch(\Exception $exception) {
+				//if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
+		return($profiles);
 	}
 }
