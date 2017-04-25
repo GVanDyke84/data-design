@@ -142,22 +142,51 @@ class Profile {
 
 	/**
 	 * mutator method for profile hash
-	 * @param string $newProfileHash
+	 * @param string $profileHash
 	 * @throws \InvalidArgumentException if the hash is not secure
 	 * @throws \RangeException if the hash is not 128 characters
 	 * @throws \TypeError if the profile hash is not a string
 	 */
 	public function setProfileHash(string $profileHash): void {
-		$profileHash = trim($newProfileHash);
-		if(empty($newProfileHash) === true) {
+		$profileHash = trim($profileHash);
+		if(empty($profileHash) === true) {
 			throw(new \InvalidArgumentException("profile hash empty or insecure"));
 		}
 		//enforce profile Hash is exactly 128 characters
-		if(strlen($newProfileHash) !== 128) {
+		if(strlen($profileHash) !== 128) {
 			throw(new \RangeException("profile hash must be 128 characters"));
 		}
 		//store the profile hash
-		$this->profileHash = $newProfileHash;
+		$this->profileHash = $profileHash;
+	}
+
+	/**
+	 * accessor method for profile salt
+	 * @return string value of profile salt
+	 */
+
+	public function getProfileSalt(): string {
+		return ($this->profileSalt);
+	}
+
+	/**
+	 * mutator method for profile salt
+	 * @param string $profileSalt
+	 * @throws \InvalidArgumentException if the salt is not secure
+	 * @throws \RangeException if the salt is not 128 characters
+	 * @throws \TypeError if the salt is not a string
+	 */
+	public function setProfileSalt(string $profileSalt) : void {
+		$profileSalt = trim($profileSalt);
+		if(empty($profileSalt) === true) {
+			throw(new \InvalidArgumentException("profile salt empty or insecure"));
+		}
+		//enforce profile salt is exactly 128 characters
+		if (strlen($profileSalt) !== 128) {
+			throw(new \RangeException("profile salt must be 128 characters"));
+		}
+		//store the profile salt
+		$this->profileSalt = $profileSalt;
 	}
 
 	/**
