@@ -202,4 +202,25 @@ class Profile {
 			$parameters = ["profileId" => $this->profileId];
 			$statement->execute($parameters);
 		}
+		/**
+		 * updates this profile in mySQL
+		 *
+		 * @param \PDO $pdo PDO connection object
+		 * @throws \PDOException when mySQL related errors occur
+		 * @throws \TypeError if $pdo is not a PDO connection object
+		 *
+		 */
+
+		public function update(\PDO $pdo) : void {
+			// enforce the profileId is not null (i.e. don't update a profile that hasn't been inserted
+			if($this->profileId === null) {
+				throw(new \PDOException("unable to update a profile that does not exist"));
+			}
+			//create query template
+
+			$query = "UPDATE profile SET profileId = :profileId, profileEmail = :profileEmail, 						profileAvatar = :profileAvatar";
+			//bind the profile variables to the placeholders in the template
+			$parameters = ["profileId" => $this->profileId, "profileEmail" => $this->profileEmail, 						"profileAvatar" => $this->profileAvatar];
+			$statement->execute($parameters);
+		}
 	}}
