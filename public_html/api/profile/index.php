@@ -10,3 +10,16 @@ use Edu\Cnm\DataDesign\ {
 			Profile
 };
 
+
+/**
+ * API for Profile
+ *
+ * @author Gerrit Van Dyke
+ * @version 1.0
+ */
+
+//verify the session, if it isn't active then start it
+
+if(session_status() !== PHP_SESSION_ACTIVE) {
+	session_start();
+}
