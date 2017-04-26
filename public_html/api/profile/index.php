@@ -23,3 +23,17 @@ use Edu\Cnm\DataDesign\ {
 if(session_status() !== PHP_SESSION_ACTIVE) {
 	session_start();
 }
+
+//prepare an empty reply
+$reply = new stdClass();
+$reply->status = 200;
+$reply->data = null;
+
+try {
+	//grab mySQL connection
+	$pdo = connectToEncryptedMySQL("insert path");
+
+	//determine HTTP method used
+	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_METHOD"] : $_SERVER["REQUEST_METHOD"];
+
+}
