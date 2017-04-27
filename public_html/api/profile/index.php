@@ -36,4 +36,16 @@ try {
 	//determine HTTP method used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
+	//sanitize input
+	$id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);
+	$profileEmail = filter_input(INPUT_GET, "profileEmail", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$profileAvatar = filter_input(INPUT_GET, "profileAvatar", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+
+	//ensure the id is valid for the methods that require it
+
+	if((method === "DELETE" || $method === "PUT") && (empty($id) === true || $id < 0)) {
+		throw(new InvalidArgumentException("id can;t be negative or empty", 405));
+
+	}
+
 }
