@@ -75,5 +75,34 @@ if($method === "GET") {
 	if(empty($_SESSION["profile"]) === true || $_SESSION{"profile"}->getProfileId() !== $id) {
 		throw(new \InvalidArgumentException("You are not allowed to access this profile", 403));
 	}
+	//decode the response from the front end
+	$requestContent = file_get_contents("php://input");
+	$requestObject = json_decode($requestContent);
+
+	//retrieve profile to be updated
+
+	$profile = Profile::getProfileByProfileId($pdo, $id);
+	if($profile === null) {
+				throw(new RuntimeException("Profile does not exist", 404));
+	}
+
+	if(empty($requestObject->newPassword) === true); {
+
+		//enforce that XSRF token is present in the header
+			verifyXsrf();
+
+			//profile email is required
+		if(empty($requestObject->profileEmail) === true) {
+			throw(new \InvalidArgumentException("No profile email present", 405));
+
+			//profile Avatar
+			if(empty($requestObject->profileAvatar) === true) {
+				throw(new \InvalidArgumentException("No profile avatar present", 405));
+
+			}
+
+
+		}
+	}
 }
 }
