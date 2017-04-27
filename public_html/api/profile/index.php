@@ -47,5 +47,22 @@ try {
 		throw(new InvalidArgumentException("id can;t be negative or empty", 405));
 
 	}
+if($method === "GET") {
+		//XSRF cookie
+	setXsrfCookie();
 
+	//gets a post by content
+	if(empty($id) === false) {
+		$profile = Profile::getProfileByProfileId($pdo, $id);
+
+		if($profile !== null) {
+			$reply->data = $profile;
+		}
+	}else if(empty($profileEmail) === false) {
+		$profile = Profile::getProfileByProfileEmail($pdo, $profileEmail);
+		if($profile !== null) {
+				$reply->data = $profile;
+		}
+	}
+}
 }
