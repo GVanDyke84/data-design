@@ -63,6 +63,17 @@ if($method === "GET") {
 		if($profile !== null) {
 				$reply->data = $profile;
 		}
+	}else if(empty($profileAvatar) === false) {
+		$profile = Profile::getProfileByProfileAvatar($pdo, $profileAvatar);
+		if($profile !== null) {
+				$reply->data = profile;
+		}
+	}
+} elseif($method === "PUT") {
+
+		//ensure the user is signed in and trying to edit only their own profile
+	if(empty($_SESSION["profile"]) === true || $_SESSION{"profile"}->getProfileId() !== $id) {
+		throw(new \InvalidArgumentException("You are not allowed to access this profile", 403));
 	}
 }
 }
