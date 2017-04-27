@@ -47,62 +47,73 @@ try {
 		throw(new InvalidArgumentException("id can;t be negative or empty", 405));
 
 	}
-if($method === "GET") {
+	if($method === "GET") {
 		//XSRF cookie
-	setXsrfCookie();
+		setXsrfCookie();
 
-	//gets a post by content
-	if(empty($id) === false) {
-		$profile = Profile::getProfileByProfileId($pdo, $id);
+		//gets a post by content
+		if(empty($id) === false) {
+			$profile = Profile::getProfileByProfileId($pdo, $id);
 
-		if($profile !== null) {
-			$reply->data = $profile;
-		}
-	}else if(empty($profileEmail) === false) {
-		$profile = Profile::getProfileByProfileEmail($pdo, $profileEmail);
-		if($profile !== null) {
+			if($profile !== null) {
 				$reply->data = $profile;
-		}
-	}else if(empty($profileAvatar) === false) {
-		$profile = Profile::getProfileByProfileAvatar($pdo, $profileAvatar);
-		if($profile !== null) {
+			}
+		} else if(empty($profileEmail) === false) {
+			$profile = Profile::getProfileByProfileEmail($pdo, $profileEmail);
+			if($profile !== null) {
+				$reply->data = $profile;
+			}
+		} else if(empty($profileAvatar) === false) {
+			$profile = Profile::getProfileByProfileAvatar($pdo, $profileAvatar);
+			if($profile !== null) {
 				$reply->data = profile;
+			}
 		}
-	}
-} elseif($method === "PUT") {
+	} elseif($method === "PUT") {
 
 		//ensure the user is signed in and trying to edit only their own profile
-	if(empty($_SESSION["profile"]) === true || $_SESSION{"profile"}->getProfileId() !== $id) {
-		throw(new \InvalidArgumentException("You are not allowed to access this profile", 403));
-	}
-	//decode the response from the front end
-	$requestContent = file_get_contents("php://input");
-	$requestObject = json_decode($requestContent);
+		if(empty($_SESSION["profile"]) === true || $_SESSION{"profile"}->getProfileId() !== $id) {
+			throw(new \InvalidArgumentException("You are not allowed to access this profile", 403));
+		}
+		//decode the response from the front end
+		$requestContent = file_get_contents("php://input");
+		$requestObject = json_decode($requestContent);
 
-	//retrieve profile to be updated
+		//retrieve profile to be updated
 
-	$profile = Profile::getProfileByProfileId($pdo, $id);
-	if($profile === null) {
-				throw(new RuntimeException("Profile does not exist", 404));
-	}
+		$profile = Profile::getProfileByProfileId($pdo, $id);
+		if($profile === null) {
+			throw(new RuntimeException("Profile does not exist", 404));
+		}
 
-	if(empty($requestObject->newPassword) === true); {
+		if(empty($requestObject->newPassword) === true) ;
+		{
 
-		//enforce that XSRF token is present in the header
+			//enforce that XSRF token is present in the header
 			verifyXsrf();
 
 			//profile email is required
-		if(empty($requestObject->profileEmail) === true) {
-			throw(new \InvalidArgumentException("No profile email present", 405));
+			if(empty($requestObject->profileEmail) === true) {
+				throw(new \InvalidArgumentException("No profile email present", 405));
 
-			//profile Avatar
-			if(empty($requestObject->profileAvatar) === true) {
-				throw(new \InvalidArgumentException("No profile avatar present", 405));
+				//profile Avatar
+				if(empty($requestObject->profileAvatar) === true) {
+					throw(new \InvalidArgumentException("No profile avatar present", 405));
+
+				}
+
+				$profile->setProfileEmail($requestObject->profileEmail);
+				$profile->setProfileAvatar($requestObject - profileAvatar);
+				$profile->update($pdo);
+
+				//update reply
+
+				$reply->message = "Profile information updated";
 
 			}
-
-
 		}
 	}
 }
-}
+
+
+
