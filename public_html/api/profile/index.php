@@ -110,10 +110,39 @@ try {
 
 				$reply->message = "Profile information updated";
 
-			}
-		}
-	}
-}
+			} elseif($method === "DELETE") {
+				//verify the XSRF token
+				verifyXsrf();
 
+				$profile = Profile::getProfileByProfileId($pdo, $id);
+				if($profile === null) {
+					throw (new RuntimeException("Profile does not exist"));
+				}
+
+				//ensure the user is logged in and only trying to edit their own profile
+				if(empty($_SESSION["profile"]) === true || $_SESSION["profile"]->getProfileId() !== $profile->getProfileId()) {
+					throw(new \InvalidArgumentException("You are not allowed to access this profile", 403));
+				}
+
+				//delete the profile from the database
+				$profile->delete($pdo);
+				$reply->message = "Profile Deleted";
+			} else {
+				throw (new InvalidArgumentException("Invalid HTTP request", 400));
+			}
+			//catch any exceptions that were thrown and update the status and message state variable fields
+
+		} catch
+		(\Exception | \TypeError $exception) {
+			$reply->status = $exception->getCode();
+			$reply->message = $exception->getMessage();
+		}
+
+			header("Content-type: application/json");
+		if($reply->data === null) {
+			unset($reply->data);
+		}
+		//encode and return reply to front end caller
+		echo json_encode($reply);
 
 
