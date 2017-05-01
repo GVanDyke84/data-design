@@ -25,9 +25,7 @@ class Product {
 	 * @var string $profileAvatar
 	 **/
 	private $productImage;
-	/**
-	 * randomly generated required salt for profile password
-	 * @var string $profileSalt
+
 
 
 	public function __construct(? int $productID, int $productPrice, string $productImage) {
